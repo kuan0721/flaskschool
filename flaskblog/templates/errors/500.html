@@ -1,7 +1,12 @@
+{# 繼承 base 佈局，使用 layout.html 作為基礎模板 #}
 {% extends "layout.html" %}
+
+{# 定義 content 區塊的內容 #}
 {% block content %}
     <div class="content-section">
+        <!-- 顯示 500 錯誤頁面的標題 -->
         <h1>Something went wrong (500)</h1>
+        <!-- 提示用戶稍後再試的訊息 -->
         <p>We're experiencing some trouble on our end. Please try again in the near future</p>
     </div>
 {% endblock content %}

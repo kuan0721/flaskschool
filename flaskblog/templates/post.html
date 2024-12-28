@@ -1,35 +1,57 @@
 {% extends "layout.html" %}
 {% block content %}
+  <!-- 單篇文章區塊 -->
   <article class="media content-section">
+    <!-- 作者的頭像圖片 -->
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    
     <div class="media-body">
+      <!-- 文章元數據區塊，包括作者名稱、發布日期，以及編輯和刪除按鈕（僅限作者） -->
       <div class="article-metadata">
+        <!-- 作者名稱，作為連結指向該作者的所有文章 -->
         <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+        <!-- 文章發布日期 -->
         <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+        
+        <!-- 如果當前用戶是文章的作者，顯示更新和刪除按鈕 -->
         {% if post.author == current_user %}
           <div>
+            <!-- 更新按鈕，指向文章的更新頁面 -->
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+            <!-- 刪除按鈕，觸發刪除確認的模態框 -->
             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
           </div>
         {% endif %}
       </div>
+      
+      <!-- 文章標題 -->
       <h2 class="article-title">{{ post.title }}</h2>
+      <!-- 文章內容 -->
       <p class="article-content">{{ post.content }}</p>
     </div>
   </article>
-  <!-- Modal -->
+  
+  <!-- 刪除確認模態框 -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+        <!-- 模態框頭部 -->
         <div class="modal-header">
           <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+          <!-- 關閉模態框的按鈕 -->
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <!-- 模態框底部，包含取消和確認刪除的按鈕 -->
         <div class="modal-footer">
+          <!-- 取消按鈕，關閉模態框 -->
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- 確認刪除的表單，提交刪除請求 -->
           <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+            <!-- CSRF 保護隱藏標籤（假設使用 Flask-WTF） -->
+            {{ form.hidden_tag() }}
+            <!-- 確認刪除按鈕 -->
             <input class="btn btn-danger" type="submit" value="Delete">
           </form>
         </div>

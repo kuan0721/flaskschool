@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- 自定義 CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
+    <!-- 動態標題 -->
     {% if title %}
         <title>Flask Blog - {{ title }}</title>
     {% else %}
@@ -17,25 +20,34 @@
     {% endif %}
 </head>
 <body>
+    <!-- 頁首區塊 -->
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
+          <!-- 網站品牌名稱，點擊返回主頁 -->
           <a class="navbar-brand mr-4" href="/">Flask Blog</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <!-- 漢堡選單按鈕，用於響應式導航 -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                  data-target="#navbarToggle" aria-controls="navbarToggle" 
+                  aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <!-- 導航欄內容，根據使用者登入狀態顯示不同連結 -->
           <div class="collapse navbar-collapse" id="navbarToggle">
+            <!-- 左側導航連結 -->
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
               <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
             </div>
-            <!-- Navbar Right Side -->
+            <!-- 右側導航連結 -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
+                <!-- 已登入使用者可見的連結 -->
                 <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
                 <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
                 <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
               {% else %}
+                <!-- 未登入使用者可見的連結 -->
                 <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
                 <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
               {% endif %}
@@ -44,9 +56,13 @@
         </div>
       </nav>
     </header>
+
+    <!-- 主要內容區塊 -->
     <main role="main" class="container">
       <div class="row">
+        <!-- 左側主要內容區 -->
         <div class="col-md-8">
+          <!-- 顯示閃現訊息（Flash Messages） -->
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -56,8 +72,10 @@
               {% endfor %}
             {% endif %}
           {% endwith %}
+          <!-- 插入具體頁面的內容 -->
           {% block content %}{% endblock %}
         </div>
+        <!-- 右側側邊欄區 -->
         <div class="col-md-4">
           <div class="content-section">
             <h3>Our Sidebar</h3>
@@ -74,11 +92,16 @@
       </div>
     </main>
 
-
-    <!-- Optional JavaScript -->
+    <!-- 引入必要的 JavaScript 檔案 -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+            crossorigin="anonymous"></script>
 </body>
-</html>
+</html> 

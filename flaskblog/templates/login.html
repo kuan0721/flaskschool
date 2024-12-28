@@ -1,13 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
+        <!-- 表單提交至當前頁面 -->
         <form method="POST" action="">
+            <!-- 隱藏標籤，用於 CSRF 保護 -->
             {{ form.hidden_tag() }}
+            
+            <!-- 表單區域標題 -->
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Log In</legend>
+
+                <!-- 郵箱字段 -->
                 <div class="form-group">
+                    <!-- 郵箱標籤，應用 Bootstrap 的表單控制標籤樣式 -->
                     {{ form.email.label(class="form-control-label") }}
+                    
                     {% if form.email.errors %}
+                        <!-- 如果有錯誤，將輸入框標記為無效並顯示錯誤訊息 -->
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.email.errors %}
@@ -15,12 +24,18 @@
                             {% endfor %}
                         </div>
                     {% else %}
+                        <!-- 正常顯示郵箱輸入框，應用 Bootstrap 的表單控制樣式 -->
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+
+                <!-- 密碼字段 -->
                 <div class="form-group">
+                    <!-- 密碼標籤，應用 Bootstrap 的表單控制標籤樣式 -->
                     {{ form.password.label(class="form-control-label") }}
+                    
                     {% if form.password.errors %}
+                        <!-- 如果有錯誤，將輸入框標記為無效並顯示錯誤訊息 -->
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.password.errors %}
@@ -28,22 +43,33 @@
                             {% endfor %}
                         </div>
                     {% else %}
+                        <!-- 正常顯示密碼輸入框，應用 Bootstrap 的表單控制樣式 -->
                         {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+
+                <!-- 記住我復選框 -->
                 <div class="form-check">
+                    <!-- 記住我復選框輸入，應用 Bootstrap 的表單檢查樣式 -->
                     {{ form.remember(class="form-check-input") }}
+                    <!-- 記住我標籤，應用 Bootstrap 的表單檢查標籤樣式 -->
                     {{ form.remember.label(class="form-check-label") }}
                 </div>
             </fieldset>
+
+            <!-- 提交按鈕和忘記密碼連結 -->
             <div class="form-group">
+                <!-- 提交按鈕，應用 Bootstrap 的按鈕樣式 -->
                 {{ form.submit(class="btn btn-outline-info") }}
+                <!-- 忘記密碼連結，應用 Bootstrap 的文字樣式和間距類 -->
                 <small class="text-muted ml-2">
                     <a href="{{ url_for('users.reset_request') }}">Forgot Password?</a>
                 </small>
             </div>
         </form>
     </div>
+
+    <!-- 註冊提示區域 -->
     <div class="border-top pt-3">
         <small class="text-muted">
             Need An Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign Up Now</a>

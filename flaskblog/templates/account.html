@@ -1,57 +1,94 @@
 {% extends "layout.html" %}
 {% block content %}
+    <!-- 用戶帳戶資訊區塊開始 -->
     <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ current_user.username }}</h2>
-          <p class="text-secondary">{{ current_user.email }}</p>
+        <!-- 用戶媒體對齊區塊，包含頭像和基本資訊 -->
+        <div class="media">
+            <!-- 用戶頭像圖片，使用 Bootstrap 的圓形樣式 -->
+            <img class="rounded-circle account-img" src="{{ image_file }}" alt="User Image">
+            <div class="media-body">
+                <!-- 用戶名作為標題 -->
+                <h2 class="account-heading">{{ current_user.username }}</h2>
+                <!-- 用戶郵箱地址，以淡色文字顯示 -->
+                <p class="text-secondary">{{ current_user.email }}</p>
+            </div>
         </div>
-      </div>
+        
+        <!-- 帳戶資訊更新表單開始 -->
         <form method="POST" action="" enctype="multipart/form-data">
+            <!-- 隱藏標籤，用於 CSRF 保護 -->
             {{ form.hidden_tag() }}
+            
+            <!-- 表單組織區塊 -->
             <fieldset class="form-group">
+                <!-- 表單區域標題，動態顯示 -->
                 <legend class="border-bottom mb-4">Account Info</legend>
+                
+                <!-- 用戶名輸入欄位 -->
                 <div class="form-group">
+                    <!-- 用戶名欄位的標籤，應用 Bootstrap 樣式 -->
                     {{ form.username.label(class="form-control-label") }}
-
+                    
+                    <!-- 檢查用戶名欄位是否有錯誤 -->
                     {% if form.username.errors %}
+                        <!-- 如果有錯誤，添加 'is-invalid' 類並顯示錯誤訊息 -->
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
+                            <!-- 遍歷並顯示所有錯誤訊息 -->
                             {% for error in form.username.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
+                        <!-- 正常顯示用戶名輸入欄位，應用 Bootstrap 樣式 -->
                         {{ form.username(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                
+                <!-- 郵箱輸入欄位 -->
                 <div class="form-group">
+                    <!-- 郵箱欄位的標籤，應用 Bootstrap 樣式 -->
                     {{ form.email.label(class="form-control-label") }}
+                    
+                    <!-- 檢查郵箱欄位是否有錯誤 -->
                     {% if form.email.errors %}
+                        <!-- 如果有錯誤，添加 'is-invalid' 類並顯示錯誤訊息 -->
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
+                            <!-- 遍歷並顯示所有錯誤訊息 -->
                             {% for error in form.email.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
+                        <!-- 正常顯示郵箱輸入欄位，應用 Bootstrap 樣式 -->
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                
+                <!-- 頭像上傳欄位 -->
                 <div class="form-group">
+                    <!-- 頭像上傳欄位的標籤 -->
                     {{ form.picture.label() }}
+                    <!-- 頭像上傳輸入框，使用 Bootstrap 的文件輸入樣式 -->
                     {{ form.picture(class="form-control-file") }}
+                    
+                    <!-- 檢查頭像上傳欄位是否有錯誤 -->
                     {% if form.picture.errors %}
+                        <!-- 遍歷並顯示所有錯誤訊息 -->
                         {% for error in form.picture.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
+                            <span class="text-danger">{{ error }}</span><br>
                         {% endfor %}
                     {% endif %}
                 </div>
             </fieldset>
+            
+            <!-- 提交按鈕區塊 -->
             <div class="form-group">
+                <!-- 渲染提交按鈕，應用 Bootstrap 按鈕樣式 -->
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>
+    <!-- 用戶帳戶資訊區塊結束 -->
 {% endblock content %}

@@ -1,13 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
+        <!-- 表單提交至當前頁面 -->
         <form method="POST" action="">
             {{ form.hidden_tag() }}
+            
+            <!-- 表單區域標題 -->
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Reset Password</legend>
+
+                <!-- 郵箱字段 -->
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
+                        <!-- 如果有錯誤，將字段標記為無效並顯示錯誤訊息 -->
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.email.errors %}
@@ -15,10 +21,13 @@
                             {% endfor %}
                         </div>
                     {% else %}
+                        <!-- 正常顯示郵箱字段 -->
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>
+
+            <!-- 提交按鈕 -->
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>

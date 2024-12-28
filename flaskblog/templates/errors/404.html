@@ -1,7 +1,12 @@
+{# 繼承 base 佈局，使用 layout.html 作為基礎模板 #}
 {% extends "layout.html" %}
+
+{# 定義 content 區塊的內容 #}
 {% block content %}
     <div class="content-section">
+        <!-- 顯示 404 錯誤頁面的標題 -->
         <h1>Oops. Page Not Found (404)</h1>
+        <!-- 提示用戶該頁面不存在，請嘗試其他位置 -->
         <p>That page does not exist. Please try a different location</p>
     </div>
 {% endblock content %}

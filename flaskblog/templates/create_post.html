@@ -1,40 +1,65 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="content-section">
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">{{ legend }}</legend>
+    <!-- 表單容器開始 -->
+    <div class="content-section">
+        <!-- 表單提交至當前頁面，使用 POST 方法 -->
+        <form method="POST" action="">
+            <!-- 隱藏標籤，用於 CSRF 保護 -->
+            {{ form.hidden_tag() }}
+            
+            <!-- 表單組織區塊 -->
+            <fieldset class="form-group">
+                <!-- 表單區域標題，動態顯示 -->
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
+                
+                <!-- 標題輸入欄位 -->
+                <div class="form-group">
+                    <!-- 標題欄位的標籤，應用 Bootstrap 樣式 -->
+                    {{ form.title.label(class="form-control-label") }}
+                    
+                    <!-- 檢查標題欄位是否有錯誤 -->
+                    {% if form.title.errors %}
+                        <!-- 如果有錯誤，添加 'is-invalid' 類並顯示錯誤訊息 -->
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            <!-- 遍歷並顯示所有錯誤訊息 -->
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- 正常顯示標題輸入欄位，應用 Bootstrap 樣式 -->
+                        {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                
+                <!-- 內容輸入欄位 -->
+                <div class="form-group">
+                    <!-- 內容欄位的標籤，應用 Bootstrap 樣式 -->
+                    {{ form.content.label(class="form-control-label") }}
+                    
+                    <!-- 檢查內容欄位是否有錯誤 -->
+                    {% if form.content.errors %}
+                        <!-- 如果有錯誤，添加 'is-invalid' 類並顯示錯誤訊息 -->
+                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            <!-- 遍歷並顯示所有錯誤訊息 -->
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- 正常顯示內容輸入欄位，應用 Bootstrap 樣式 -->
+                        {{ form.content(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            
+            <!-- 提交按鈕區塊 -->
             <div class="form-group">
-                {{ form.title.label(class="form-control-label") }}
-                {% if form.title.errors %}
-                    {{ form.title(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.title.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.title(class="form-control form-control-lg") }}
-                {% endif %}
+                <!-- 渲染提交按鈕，應用 Bootstrap 按鈕樣式 -->
+                {{ form.submit(class="btn btn-outline-info") }}
             </div>
-            <div class="form-group">
-                {{ form.content.label(class="form-control-label") }}
-                {% if form.content.errors %}
-                    {{ form.content(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.content.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.content(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 {% endblock content %}
